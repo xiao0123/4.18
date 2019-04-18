@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<!--https://www.cnblogs.com/yuqingfamily/p/5837930.html-->
+		<ul id="parent-list">
+		  <li id="post-1">Item 1</li>
+		  <li id="post-2">Item 2</li>
+		  <li id="post-3">Item 3</li>
+		  <li id="post-4">Item 4</li>
+		  <li id="post-5">Item 5</li>
+		  <li id="post-6">Item 6</li>
+		</ul>
+		
+		<script type="text/javascript">
+			//我们通常的做法是对每一个元素进行循环操作添加监听事件：
+
+
+			var oUl=document.getElementById("parent-list");
+			var aLi=oUl.getElementsByTagName('li');
+			
+			for (var i = 0; i < aLi.length; i++) {
+			    aLi[i].onclick=function () {
+			        console.log(this.id);
+			    }
+			}
+			
+			//如果这个UL中的Li子元素会频繁地添加或者删除，我们就需要在每次添加Li添加事件处理函数，这就增加了复杂度和出错的可能性。
+
+//更简单的方法是使用事件代理机制，当事件被抛到更上层的父节点的时候，我们通过检查事件的目标对象（target）来判断并获取事件源Li。下面的代码可以完成我们想要的效果：
+			
+			var oUl=document.getElementById("parent-list");
+			var aLi=oUl.getElementsByTagName('li');
+			
+			function target(e) {
+			    var oEvent=e||event;
+			    return oEvent.target||oEvent.srcElement;
+			}
+			
+			oUl.addEventListener('click',function (e) {
+			    var oEvent=e||event;
+			    var targets=target(oEvent);
+			    if (targets.tagName.toLowerCase()=='li') {
+			        console.log(targets.id);
+			    }
+			})
+			
+			//为父节点添加一个click事件，当子节点被点击的时候，click事件会从子节点开始向上冒泡。父节点捕获到事件之后，通过判断e.target.nodeName来判断是否为我们需要处理的节点。并且通过e.target拿到了被点击的Li节点。从而可以获取到相应的信息，并作处理。
+			
+		</script>
+		
+	</body>
+</html>
