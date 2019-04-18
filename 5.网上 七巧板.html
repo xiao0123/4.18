@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<canvas id="canvas" width="800" height="800"></canvas>
+		<script type="text/javascript">
+			window.onload = function() {
+    var tangram = [
+    {p:[{x:0,y:0},{x:800,y:0},{x:400,y:400}],color:"#caff67"},
+    {p:[{x:0,y:0},{x:400,y:400},{x:0,y:800}],color:"#67becf"},
+    {p:[{x:800,y:0},{x:800,y:400},{x:600,y:600},{x:600,y:200}],color:"#ef3d61"},
+    {p:[{x:600,y:200},{x:600,y:600},{x:400,y:400}],color:"#f9f51a"},
+    {p:[{x:400,y:400},{x:600,y:600},{x:400,y:800},{x:200,y:600}],color:"#a54c09"},
+    {p:[{x:200,y:600},{x:400,y:800},{x:0,y:800}],color:"#fa8ccc"},
+    {p:[{x:800,y:400},{x:800,y:800},{x:400,y:800}],color:"#f6ca29"}
+    ];
+    var canvas = document.querySelector("canvas"); //获取canvas元素
+    var context = canvas.getContext("2d");  //获取绘图上下文环境
+    for (var i = 0; i < tangram.length; i++) {
+        draw(context, tangram[i]);
+    };
+    function draw (ctxt,piece) {
+        ctxt.beginPath();  //开始路径
+        ctxt.moveTo(piece.p[0].x, piece.p[0].y);  //canvas画笔移动到目标点
+        for (var i = 1; i < piece.p.length; i++) {
+            ctxt.lineTo(piece.p[i].x,piece.p[i].y);  //canvas画笔依次绘制路径点
+        };
+        ctxt.closePath();  //闭合路径
+        ctxt.fillStyle = piece.color; //填充颜色
+        ctxt.stroke();
+        ctxt.fill(); //图形的填充
+    }
+};
+			
+	//ine2-10 是用对象储存了每次绘制的起始坐标点，和填充颜色。
+
+//然后利用for循环来根据所给的坐标绘制图形。
+//
+//canvas绘制图形的时候不仅要在javascript中获取canvas标签，还需要获取canvas的绘图上下文环境，见line11-12.
+//
+//canvas绘制时需要把绘制的坐标状态用beginPath()和closePath()包裹起来，当一个画布的环境第一次创建，beginPath() 方法会被显式地调用。
+//
+//beginPath() 丢弃任何当前定义的路径并且开始一条新的路径。
+//
+//坐标状态设置完成之后我们需要设置绘制状态，例如线的宽和颜色，图形的填充色等，我们这里绘制七巧板只需要设置填充色，见line23。
+//
+//在坐标状态和绘制状态设置完成后，我们再进行绘制，连线和填色，见line24-25。
+//
+//而整个七巧板我们需要绘制七次，所以我们将这个函数封装起来，利用for循环遍历来绘制七巧板。		
+			
+			
+		</script>
+		
+	</body>
+</html>

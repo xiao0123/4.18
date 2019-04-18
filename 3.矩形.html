@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			
+			#canvas{
+				width: 400px;
+				height: 400px;
+				border:solid 1px red;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="800" height="800"></canvas>
+		<script type="text/javascript">
+			var canvas = document.querySelector("#canvas");
+			var ctx = canvas.getContext('2d');
+			
+			ctx.rect(200,200,400,400);
+			ctx.lineWidth=10;
+			ctx.strokeStyle="red";
+			ctx.fillStyle="palegoldenrod";
+			
+			ctx.stroke();
+			ctx.fill();
+			
+			ctx.strokeRect(300,300,200,200);
+			ctx.strokeRect(350,350,100,100);
+			
+			ctx.clearRect(375,0,50,800)
+			
+			
+			
+		</script>
+		
+		
+	</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#canvas{
+				width: 600px;
+				height: 600px;
+				border: 1px solid red;
+				display: block;
+				/*margin: 0;
+				padding: 0;*/
+			}
+			
+			/**{
+				margin: 0;
+				padding: 0;
+			}*/
+			
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="600" height="600"></canvas>
+		<input type="range" name="" id="size" value="1" min="1" max="50" />
+		<input type="color" name="" id="color" value="" />
+		
+		
+		<script type="text/javascript">
+			var canvas=document.querySelector("#canvas");
+			var cxt=canvas.getContext("2d");
+			
+			
+			
+			var flag=false;
+			canvas.onmousedown=function(e){
+				flag=true;
+				cxt.beginPath();
+			}
+			//e.pageX , e.pageY鼠标在页面上的位置。x是光标离左边的位置 y是离上边的位置 单位是像素;鼠标当前x轴及y轴位置
+			//this.offsetLeft边框距浏览器左边的距离
+			canvas.onmousemove=function(e){
+				if(flag){
+					var x=e.pageX-this.offsetLeft;
+					var y=e.pageY-this.offsetTop;
+					
+					
+				}
+//				console.log(e.pageX-this.offsetLeft);
+//				console.log(e.pageX);
+//				console.log(this.offsetLeft)
+//				console.log(this.offsetTop)
+				
+				
+				cxt.lineTo(x,y)
+				cxt.stroke()
+			}
+			
+			canvas.onmouseup=function(e){
+				flag=false;
+				cxt.closePath()
+			}
+			
+			document.querySelector("#size").onchange=function(){
+				cxt.lineWidth=this.value;
+			}
+			
+			document.querySelector("#color").onchange=function(){
+				cxt.strokeStyle=this.value
+			}
+			
+		</script>
+	</body>
+</html>
